@@ -40,5 +40,5 @@ void Channel::fader(float value)
 
   size += this->convert(send_buffer + size, &value, sizeof(value));
 
-  sendto(sockfd, send_buffer, size, 0, (struct sockaddr *)&serv, m);
+  send(send_buffer, size);
 }
