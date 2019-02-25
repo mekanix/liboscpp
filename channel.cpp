@@ -6,6 +6,7 @@
 
 Channel::Channel(const int channel)
   : _channel{channel}
+  , _fader{0.75}
 {}
 
 
@@ -19,26 +20,15 @@ int Channel::channel() const
 
 void Channel::fader(float value)
 {
+  static const char *faderFormat = "/ch/%02d/mix/fader";
   char send_buffer[64] = {0};
   int size = 0;
+  _fader = value;
 
-  const char *pre = "/ch/";
-  size += strlen(pre);
-  strncpy(send_buffer, pre, size);
-
-  sprintf(send_buffer + size, "%02d", _channel);
-  size += 2;
-
-  const char *post = "/mix/fader";
-  int postLen = strlen(post);
-  strncpy(send_buffer + size, post, postLen);
-  size += postLen;
-  size += 4;
-
+  sprintf(send_buffer, faderFormat, _channel);
+  size += strlen(send_buffer) + 4;
   strncpy(send_buffer + size, ",f", 2);
   size += 4;
-
-  size += this->convert(send_buffer + size, &value, sizeof(value));
-
+  size += this->convert(send_buffer + size, &_fader, sizeof(_fader));
   send(send_buffer, size);
 }

@@ -45,6 +45,6 @@ void IO::findMixer()
     exit(1);
   }
   serv.sin_addr.s_addr = htonl(INADDR_BROADCAST);
-  char info[] = "/info\0\0";
+  char info[] = "/info\0\0\0";
   send(info, sizeof(info));
 }

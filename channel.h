@@ -12,7 +12,9 @@ class Channel : public IO
     int channel() const;
 
     void fader(float value);
+    float fader() const;
 
   private:
     int _channel;
+    float _fader;
 };
