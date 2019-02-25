@@ -1,0 +1,14 @@
+all: $(PROGRAM)
+
+$(PROGRAM): $(OBJECTS)
+	@echo -n "Linking $(PROGRAM) ... "
+	@$(CXX) $(CXXFLAGS) $(LDFLAGS) $(OBJECTS) -o $(PROGRAM)
+	@echo "done"
+
+.cpp.o:
+	@echo -n "$< ... "
+	@$(CXX) $(CXXFLAGS) -c $<
+	@echo "done"
+
+clean:
+	rm -rf $(OBJECTS) $(PROGRAM)
