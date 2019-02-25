@@ -9,6 +9,7 @@
 static struct sockaddr_in initSockaddr()
 {
   struct sockaddr_in serv;
+  memset(&serv, 0, sizeof(serv));
   serv.sin_family = AF_INET;
   serv.sin_port = htons(10024);
   return serv;
