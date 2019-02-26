@@ -2,12 +2,12 @@ all: $(PROGRAM)
 
 $(PROGRAM): $(OBJECTS)
 	@echo -n "Linking $(PROGRAM) ... "
-	@$(CXX) $(CXXFLAGS) $(LDFLAGS) $(OBJECTS) -o $(PROGRAM)
+	@$(CXX) $(CXXFLAGS) $(LDFLAGS) $(OBJECTS) -shared -o $(PROGRAM)
 	@echo "done"
 
 .cpp.o:
 	@echo -n "$< ... "
-	@$(CXX) $(CXXFLAGS) -c $<
+	@$(CXX) $(CXXFLAGS) -fPIC -c $<
 	@echo "done"
 
 clean:
