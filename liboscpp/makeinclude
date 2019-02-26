@@ -7,7 +7,7 @@ $(PROGRAM): $(OBJECTS)
 
 .cpp.o:
 	@echo -n "$< ... "
-	@$(CXX) $(CXXFLAGS) -fPIC -c $<
+	@$(CXX) $(CXXFLAGS) -fPIC -c $< -o $@
 	@echo "done"
 
 clean:

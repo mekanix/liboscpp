@@ -1,2 +1,3 @@
 PROGRAM = liboscpp.so
 OBJECTS = $(CXXFILES:.cpp=.o)
+CXXFLAGS += -I .

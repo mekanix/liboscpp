@@ -1,4 +1,4 @@
-#include "channel.h"
+#include <oscpp/channel.h>
 #include <string.h>
 #include <stdio.h>
 #include <sys/socket.h>

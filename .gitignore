@@ -1,2 +1,2 @@
 *.o
-liboscpp.so
+*.so
