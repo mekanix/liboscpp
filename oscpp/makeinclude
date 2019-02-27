@@ -1,3 +1,5 @@
+PREFIX ?= /usr/local
+
 all: $(PROGRAM)
 
 $(PROGRAM): $(OBJECTS)
@@ -9,6 +11,12 @@ $(PROGRAM): $(OBJECTS)
 	@echo -n "$< ... "
 	@$(CXX) $(CXXFLAGS) -fPIC -c $< -o $@
 	@echo "done"
+
+install:
+	mkdir -p $(DESTDIR)$(PREFIX)
+	install -m 0755 $(PROGRAM) $(DESTDIR)$(PREFIX)/lib
+	mkdir -p $(DESTDIR)$(PREFIX)/include
+	cp -r oscpp $(DESTDIR)$(PREFIX)/include
 
 clean:
 	rm -rf $(OBJECTS) $(PROGRAM)
