@@ -4,6 +4,12 @@
 #include <sys/socket.h>
 
 
+Channel::Channel()
+  : _channel{1}
+  , _fader{0.75}
+{}
+
+
 Channel::Channel(const int channel)
   : _channel{channel}
   , _fader{0.75}

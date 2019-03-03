@@ -6,6 +6,7 @@
 class Channel : public IO
 {
   public:
+    Channel();
     Channel(const int channel);
 
     void channel(const int &number);
