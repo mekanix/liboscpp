@@ -45,4 +45,15 @@ bool Mixer::channel(Channel &channel, const int &number)
 }
 
 
+Channel * Mixer::channel(const int &number)
+{
+  if (number >= _channels.size())
+  {
+    std::cerr << "No such channel" << std::endl;
+    return nullptr;
+  }
+  return &_channels[number];
+}
+
+
 Channel & channel(const int &number);

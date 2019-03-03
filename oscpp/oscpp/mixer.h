@@ -3,9 +3,10 @@
 #include <string>
 #include <vector>
 #include <oscpp/channel.h>
+#include <oscpp/io.h>
 
 
-class Mixer
+class Mixer : public IO
 {
   public:
     Mixer();
@@ -18,6 +19,7 @@ class Mixer
     int channels() const;
 
     bool channel(Channel &channel, const int &number);
+    Channel * channel(const int &number);
 
 
   private:
