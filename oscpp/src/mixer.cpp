@@ -57,3 +57,23 @@ Channel * Mixer::channel(const int &number)
 
 
 Channel & channel(const int &number);
+
+
+void Mixer::buses(const int &number)
+{
+  for (auto &ch : _channels)
+  { ch.buses(number); }
+}
+
+
+int Mixer::buses() const
+{
+  if (_channels.size() > 0)
+  {
+    return _channels[0].buses();
+  }
+  else
+  {
+    return 0;
+  }
+}

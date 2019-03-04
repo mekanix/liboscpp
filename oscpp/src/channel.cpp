@@ -10,6 +10,7 @@ static std::map<std::string, std::string> initFormatStrings()
   formatStrings["fader"] = "/ch/%02d/mix/fader";
   formatStrings["mute"] = "/ch/%02d/mix/on";
   formatStrings["solo"] = "/-stat/solosw/%02d";
+  formatStrings["busLevel"] = "/ch/%02d/mix/%02d/level";
   return formatStrings;
 }
 
@@ -36,7 +37,7 @@ int Channel::channel() const
 { return _channel; }
 
 
-void Channel::fader(float value)
+void Channel::fader(float &value)
 {
   char send_buffer[64] = {0};
   int size = 0;
@@ -49,6 +50,29 @@ void Channel::fader(float value)
   size += this->convert(send_buffer + size, &_fader, sizeof(_fader));
   send(send_buffer, size);
 }
+
+
+float Channel::fader() const
+{ return _fader; }
+
+
+void Channel::busLevel(float &value, const int &bus)
+{
+  char send_buffer[64] = {0};
+  int size = 0;
+  _buses[bus] = value;
+
+  sprintf(send_buffer, formatStrings["busFader"].data(), _channel, bus);
+  size += strlen(send_buffer) + 4;
+  strncpy(send_buffer + size, ",f", 2);
+  size += 4;
+  size += this->convert(send_buffer + size, &value, sizeof(value));
+  send(send_buffer, size);
+}
+
+
+float Channel::busLevel(const int &bus) const
+{ return _buses[bus]; }
 
 
 void Channel::mute(const int &muted)
@@ -88,3 +112,18 @@ void Channel::solo(const int &soloed)
 
 int Channel::solo() const
 { return _solo; }
+
+
+void Channel::buses(const int &number)
+{
+  const auto currentSize = _buses.size();
+  _buses.resize(number);
+  for (int i = currentSize; i < number; ++i)
+  {
+    _buses[i] = 0.75;
+  }
+}
+
+
+int Channel::buses() const
+{ return _buses.size(); }

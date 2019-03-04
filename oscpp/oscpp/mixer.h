@@ -21,6 +21,9 @@ class Mixer : public IO
     bool channel(Channel &channel, const int &number);
     Channel * channel(const int &number);
 
+    void buses(const int &number);
+    int buses() const;
+
 
   private:
     std::string _name;
