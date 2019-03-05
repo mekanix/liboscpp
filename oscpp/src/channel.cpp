@@ -2,6 +2,8 @@
 #include <string.h>
 #include <stdio.h>
 #include <sys/socket.h>
+#include <string>
+#include <map>
 
 
 static std::map<std::string, std::string> initFormatStrings()
@@ -58,16 +60,16 @@ float Channel::fader() const
 
 void Channel::busLevel(float &value, const int &bus)
 {
-  char send_buffer[64] = {0};
+  char sendBuffer[64] = {0};
   int size = 0;
   _buses[bus] = value;
 
-  sprintf(send_buffer, formatStrings["busFader"].data(), _channel, bus);
-  size += strlen(send_buffer) + 4;
-  strncpy(send_buffer + size, ",f", 2);
+  sprintf(sendBuffer, formatStrings["busLevel"].data(), _channel, bus);
+  size += strlen(sendBuffer) + 1;
+  strncpy(sendBuffer + size, ",f", 2);
   size += 4;
-  size += this->convert(send_buffer + size, &value, sizeof(value));
-  send(send_buffer, size);
+  size += this->convert(sendBuffer + size, &value, sizeof(value));
+  send(sendBuffer, size);
 }
 
 
